@@ -16,7 +16,6 @@ N_TREES = args.n_trees
 
 config = import_yaml_config("configuration/config.yaml")
 
-API_TOKEN = config.get("jeton_api")
 DATA_PATH = config.get("data_path", "data.csv")
 TRAIN_PATH = config.get("train_path", "train.csv")
 TEST_PATH = config.get("test_path", "test.csv")

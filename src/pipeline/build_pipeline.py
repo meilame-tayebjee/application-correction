@@ -1,10 +1,10 @@
 import pandas as pd
 from sklearn.preprocessing import OneHotEncoder, MinMaxScaler
-
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
+from sklearn.model_selection import train_test_split
 
 
 def split(
@@ -13,7 +13,6 @@ def split(
     train_path: str = "train.csv",
     test_path: str = "test.csv",
 ):
-    from sklearn.model_selection import train_test_split
 
     y = TrainingData["Survived"]
     X = TrainingData.drop("Survived", axis="columns")

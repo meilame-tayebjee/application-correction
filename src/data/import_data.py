@@ -33,7 +33,7 @@ def process_data(data_path):
     TrainingData.isnull().sum()
 
     # Statut socioéconomique
-    fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+    _, axes = plt.subplots(1, 2, figsize=(12, 6))
     sns.countplot(data=TrainingData, x="Pclass", ax=axes[0]).set_title(
         "fréquence des Pclass"
     )
