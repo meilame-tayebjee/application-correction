@@ -4,9 +4,9 @@ Prediction de la survie d'un individu sur le Titanic
 
 import argparse
 
-from import_data import import_yaml_config, process_data
-from build_features import split, build_pipeline
-from train_evaluate import evaluate
+from src.data.import_data import import_yaml_config, process_data
+from src.pipeline.build_pipeline import split, build_pipeline
+from src.models.train_evaluate import evaluate
 
 parser = argparse.ArgumentParser(description="Paramètres du random forest")
 parser.add_argument("--n_trees", type=int, default=20, help="Nombre d'arbres")
@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 N_TREES = args.n_trees
 
-config = import_yaml_config("config.yaml")
+config = import_yaml_config("configuration/config.yaml")
 
 API_TOKEN = config.get("jeton_api")
 DATA_PATH = config.get("data_path", "data.csv")
