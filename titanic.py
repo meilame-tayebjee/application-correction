@@ -19,19 +19,17 @@ from sklearn.metrics import confusion_matrix
 
 
 parser = argparse.ArgumentParser(description="Paramètres du random forest")
-parser.add_argument(
-    "--n_trees", type=int, default=20, help="Nombre d'arbres"
-)
+parser.add_argument("--n_trees", type=int, default=20, help="Nombre d'arbres")
 args = parser.parse_args()
 
 n_trees = args.n_trees
 
 
-def import_yaml_config(filename: str = "toto.yaml") -> dict:
+def import_yaml_config(filename: str) -> dict:
     """Import configuration from YAML file
 
     Args:
-        filename (str, optional): _description_. Defaults to "toto.yaml".
+        filename (str, optional): _description_, .yaml file
 
     Returns:
         dict: _description_
@@ -40,20 +38,26 @@ def import_yaml_config(filename: str = "toto.yaml") -> dict:
     if os.path.exists(filename):
         with open(filename, "r", encoding="utf-8") as stream:
             dict_config = yaml.safe_load(stream)
+    else:
+        print("File not found, returning empty dict.")
+        dict_config = {}
     return dict_config
 
 
 config = import_yaml_config("config.yaml")
 
-jeton_api = config.get("jeton_api")
-data_path = config.get("data_path", "data.csv")
+API_TOKEN = config.get("jeton_api")
+DATA_PATH = config.get("data_path", "data.csv")
+TRAIN_PATH = config.get("train_path", "train.csv")
+TEST_PATH = config.get("test_path", "test.csv")
+TEST_FRACTION = config.get("test_fraction", 0.1)
 MAX_DEPTH = None
 MAX_FEATURES = "sqrt"
 
 
 # IMPORT ET EXPLORATION DONNEES --------------------------------
 
-TrainingData = pd.read_csv("data.csv")
+TrainingData = pd.read_csv(DATA_PATH)
 
 
 TrainingData["Ticket"].str.split("/").str.len()
@@ -85,9 +89,9 @@ plt.show()
 y = TrainingData["Survived"]
 X = TrainingData.drop("Survived", axis="columns")
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.1)
-pd.concat([X_train, y_train]).to_csv("train.csv")
-pd.concat([X_test, y_test]).to_csv("test.csv")
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=TEST_FRACTION)
+pd.concat([X_train, y_train]).to_csv(TRAIN_PATH)
+pd.concat([X_test, y_test]).to_csv(TEST_PATH)
 
 
 # PIPELINE ----------------------------
@@ -128,11 +132,12 @@ preprocessor = ColumnTransformer(
 pipe = Pipeline(
     [
         ("preprocessor", preprocessor),
-        ("classifier", RandomForestClassifier(
-            n_estimators=n_trees,
-            max_depth=MAX_DEPTH,
-            max_features=MAX_FEATURES
-        )),
+        (
+            "classifier",
+            RandomForestClassifier(
+                n_estimators=n_trees, max_depth=MAX_DEPTH, max_features=MAX_FEATURES
+            ),
+        ),
     ]
 )
 
