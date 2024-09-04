@@ -18,8 +18,9 @@ def split(
     X = TrainingData.drop("Survived", axis="columns")
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_fraction)
-    pd.concat([X_train, y_train]).to_csv(train_path)
-    pd.concat([X_test, y_test]).to_csv(test_path)
+
+    # pd.concat([X_train, y_train]).to_csv(train_path)
+    # pd.concat([X_test, y_test]).to_csv(test_path)
 
     return X_train, X_test, y_train, y_test
 
