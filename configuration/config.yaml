@@ -1,0 +1,4 @@
+jeton_api: "$trotskitueleski1917"
+data_path: "https://minio.lab.sspcloud.fr/meilametayebjee/ensae-reproductibilite/data/raw/data.csv"
+train_path: "data/derived/train.csv"
+test_path: "data/derived/test.csv"
