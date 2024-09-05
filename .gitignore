@@ -1,4 +1,4 @@
 __pycache__/
 data/derived/test.csv
 data/derived/train.csv
-titanic/
+titanic-env/
