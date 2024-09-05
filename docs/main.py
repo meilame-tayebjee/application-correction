@@ -4,9 +4,9 @@ Prediction de la survie d'un individu sur le Titanic
 
 import argparse
 
-from src.data.import_data import import_yaml_config, process_data
-from src.pipeline.build_pipeline import split, build_pipeline
-from src.models.train_evaluate import evaluate
+from titanicml.data.import_data import import_yaml_config, process_data
+from titanicml.pipeline.build_pipeline import split, build_pipeline
+from titanicml.models.train_evaluate import evaluate
 
 parser = argparse.ArgumentParser(description="Paramètres du random forest")
 parser.add_argument("--n_trees", type=int, default=20, help="Nombre d'arbres")
