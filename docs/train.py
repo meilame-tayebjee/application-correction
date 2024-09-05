@@ -3,6 +3,7 @@ Prediction de la survie d'un individu sur le Titanic
 """
 
 import argparse
+import joblib
 
 from titanicml.data.import_data import import_yaml_config, process_data
 from titanicml.pipeline.build_pipeline import split, build_pipeline
@@ -54,4 +55,9 @@ pipe = build_pipeline(
 # ESTIMATION ET EVALUATION ----------------------
 
 pipe.fit(X_train, y_train)
+
+#Save model
+joblib.dump(pipe, 'model.joblib')
+
+
 evaluate(pipe, X_test, y_test)
