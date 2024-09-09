@@ -9,6 +9,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY api ./api
 COPY docs ./docs
+COPY configuration ./configuration
 COPY model.joblib ./model.joblib
 
 RUN ["chmod", "+x", "./api/run.sh"]
