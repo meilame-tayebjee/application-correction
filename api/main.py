@@ -4,7 +4,7 @@ from joblib import load
 
 import pandas as pd
 
-model = load('model.joblib')
+model = load('../model.joblib')
 
 app = FastAPI(
     title="Prédiction de survie sur le Titanic",
