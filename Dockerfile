@@ -8,7 +8,6 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY api ./api
 COPY docs ./docs
-COPY data ./data
 RUN pip install -e .
 
 CMD ["bash", "-c", "./api/run.sh"]
