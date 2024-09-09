@@ -57,7 +57,7 @@ pipe = build_pipeline(
 pipe.fit(X_train, y_train)
 
 #Save model
-joblib.dump(pipe, 'model.joblib')
+#joblib.dump(pipe, 'model.joblib')
 
 
 evaluate(pipe, X_test, y_test)
