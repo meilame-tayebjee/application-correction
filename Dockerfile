@@ -10,4 +10,5 @@ RUN pip install -r requirements.txt
 COPY api ./api
 COPY docs ./docs
 
+RUN ["chmod", "+x", "./api/run.sh"]
 CMD ["bash", "-c", "./api/run.sh"]
