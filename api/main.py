@@ -1,10 +1,16 @@
 """A simple API to expose our trained RandomForest model for Tutanic survival."""
 from fastapi import FastAPI
-from joblib import load
-
+import joblib
+import requests
 import pandas as pd
 
-model = load('model.joblib')
+url = f"https://minio.lab.sspcloud.fr/meilametayebjee/ensae-reproductibilite/model/model.joblib"
+local_filename = "model.joblib"
+
+with open(local_filename, mode = "wb") as file:
+    file.write(requests.get(url).content)
+
+model = joblib.load(local_filename)
 
 app = FastAPI(
     title="Prédiction de survie sur le Titanic",

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: titanic
-        image: meilametayebjee/application-correction:latest
+        image: meilametayebjee/application-correction:v3.0.0
         ports:
         - containerPort: 5000
