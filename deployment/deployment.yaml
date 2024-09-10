@@ -15,7 +15,17 @@ spec:
         app: titanic
     spec:
       containers:
-      - name: titanic
-        image: meilametayebjee/application-correction:v3.0.0
-        ports:
-        - containerPort: 5000
+        - name: api
+1          image: meilametayebjee/application-correction:v4.0.0
+          imagePullPolicy: Always
+          env:
+            - name: MLFLOW_TRACKING_URI
+2              value: https://user-meilametayebjee-mlflow.user.lab.sspcloud.fr
+            - name: MLFLOW_MODEL_NAME
+              value: titanic
+            - name: MLFLOW_MODEL_VERSION
+              value: "1"
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"

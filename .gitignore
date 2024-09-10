@@ -1,5 +1,5 @@
 __pycache__/
 data/derived/test.csv
 data/derived/train.csv
-titanic-env/
+titanicenv/
 pipeline.joblib

@@ -9,9 +9,12 @@ from titanicml.data.import_data import import_yaml_config, process_data
 from titanicml.pipeline.build_pipeline import split, build_pipeline
 from titanicml.models.train_evaluate import evaluate
 from sklearn.model_selection import GridSearchCV
+from src.models import log as mlog
 
 parser = argparse.ArgumentParser(description="Paramètres du random forest")
 parser.add_argument("--n_trees", type=int, default=20, help="Nombre d'arbres")
+parser.add_argument("--appli", type=str, default="appli21", help="Application number")
+
 args = parser.parse_args()
 
 N_TREES = args.n_trees
@@ -25,6 +28,8 @@ TEST_PATH = config.get("test_path", "test.csv")
 TEST_FRACTION = config.get("test_fraction", 0.1)
 MAX_DEPTH = None
 MAX_FEATURES = "sqrt"
+EXPERIMENT_NAME = "titanicml"
+APPLI_ID = args.appli
 
 
 # IMPORT ET EXPLORATION DONNEES --------------------------------
@@ -88,3 +93,4 @@ pipe_cross_validation.fit(X_train, y_train)
 pipe = pipe_cross_validation.best_estimator_
 
 joblib.dump(pipe, "model.joblib")
+mlog.log_gsvc_to_mlflow(pipe_cross_validation, EXPERIMENT_NAME, APPLI_ID)
